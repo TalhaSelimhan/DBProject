@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+{% block title %}Add Card To Player{% endblock %}
+{% block content %}
+    <div style="text-align: center;">
+        <h1>Add Card To Player</h1>
+    </div>
+    
+    <section class="hero is-medium is-primary is-bold" >
+        <div class="columns">
+            
+            <div class="column" style="margin-left: 40%;">
+
+                <form method="POST">
+                    <br><br>
+                    <div>
+                        <label >Card Color</label>
+                    </div>
+                    
+                    <div class="form-check-inline" id="card">
+                        <label class="form-check-label" id="check1" style="margin-right:20px">
+                          <input type="radio" class="form-check-input" name="cardColor" onclick="run()" value="false"  >Yellow
+                        </label>
+                        <label class="form-check-label" id="check2" value="true">
+                            <input type="radio" class="form-check-input" name="cardColor" onclick="run()" value="true" >Red
+                        </label>
+                    </div>
+                    <br><br>
+                    <div>
+                        <label>Ban Duration</label>
+                    </div>
+                    
+                    <div class="columns">
+                        <div class="column is-3">
+                            <div class="field" style="width: 115%;">
+                                <div class="control">
+                                    <input class="input is-primary" min="1" name="banduration" id="myText" type="number" value="0" placeholder="Ban Duration">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label >Yellow Type</label>
+                    </div>
+                    <div class="form-check-inline">
+                        <label class="form-check-label" style="margin-right:20px">
+                          <input type="radio" class="form-check-input" name="firstyellow" id="first" value="true" >1st Yellow
+                        </label>
+                        <label class="form-check-label" value="true">
+                            <input type="radio" class="form-check-input" name="secondyellow" value="false" >2nd Yellow
+                        </label>
+                    </div>
+                    <br><br>
+                    <div>
+                        <label >Card Minute</label>
+                    </div>
+                    
+                    <div class="columns">
+                        <div class="column is-3">
+                            <div class="field" style="width: 115%;">
+                                <div class="control">
+                                    <input class="input is-primary" name="minute" type="number" max="120" placeholder="Minute">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <label >Match</label>
+                    <div class="columns">
+                        <div class="column" >
+                            <div class="select">
+                                <select name="match">
+                                        <option disabled selected value> -- select match -- </option>
+                                    {%for match in matches%}
+                                    <option value="{{match[4]}}">{{match[0]}} {{match[1]}} - {{match[2]}} {{match[3]}} </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div> 
+                                
+                    </div>
+                    <div class="columns">
+                        <div class="column is-one-fifth">
+                            <input class="button is-danger" type="submit" value="Add">         
+                        </div>
+                    </div>
+                    <br>
+                    
+                </form>
+            </div>
+        </div>
+    </section>
+    <script>
+        function run() {
+            var a =document.querySelector('input[name="cardColor"]:checked').value
+            if(a=="true") { 
+                    document.getElementById("first").disabled = true;
+                    document.getElementById("myText").disabled = false;
+            } else { 
+                    document.getElementById("myText").disabled = true;
+                    document.getElementById("first").disabled = false;
+            }
+            }  
+    </script>
+{% endblock %}

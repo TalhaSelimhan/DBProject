@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+{% block title %}Team | {{team.name}}{% endblock %}
+{% block headerTitle %}{{player[1]}}{% endblock %}
+{% block subTitle %}{{player[0]}}{% endblock %}
+{% block content %}
+
+<h2>{{team.name}}</h2>            
+                    <table >
+                        <tr>
+                            <th>Country:</th>
+                            <td>{{country}}</td>
+                        </tr>
+                        <tr>
+                            <th>City:</th>
+                            <td>{{team.city}}</td>
+                        </tr>
+                        <tr>
+                            <th>League:</th>
+                            <td>{{leagueName}}</td>
+                        </tr>
+                        <tr>
+                            <th>Coach:</th>
+                            <td>{{coachName}}</td>
+                        </tr>
+                        <tr>
+                            <th>Stadium</th>
+                            <td>{{stadiumName}}</td>
+                        </tr>
+                        <tr>
+                            <th>Fan Count</th>
+                            <td>{{team.fancount}}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a class="button is-danger" type="submit" id="updateButton" name="updateButton" href="/teams/update_{{team.id}}">UPDATE</a> 
+                            </td>
+                            <td>
+                                <form method="GET" name ="add_player_to_squad{{team}}" action="/teams/add_player_to_squad_{{team.id}}">
+                                    <input class="button is-danger" type="submit" id="add_player_to_squad" name="add_player_to_squad" value="ADD PLAYER" />
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+            <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-blue w3-left-align">Squad of {{team.name}}</button>
+                <div id="Demo3" class="w3-hide w3-animate-zoom">
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Position</th>
+                        </tr>
+                        {%for player in squad%}
+                        <tr>
+                            <td><a href="/players/detail_{{player[2]}}" class="has-text-info">{{player[0]}} </a></td>
+                            <td>{{player[1]}}</td>
+                            <td>
+                                <form method="POST" name="delete_player_from_squad{{player[2]}}" action="/teams/delete_player_from_squad_{{player[2]}}">
+                                    <input class="button is-danger" value="DELETE FROM SQUAD"  type="submit" id="delete_player_from_squad" />
+                                </form>
+                            </td>
+                        </tr>
+                        {%endfor%}
+                    </table>
+                </div>
+
+
+
+<script>
+    function myFunction(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+    }
+    }
+</script>
+    
+{% endblock %}

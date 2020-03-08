@@ -1,0 +1,128 @@
+{% extends "layout.html" %}
+{% block title %}{{"Update " + team.name if update else "Add Team"}}{% endblock %}
+{% block content %}
+    <div style="text-align: center;">
+        <h1>{{"Update " + team.name if update else "Add Team"}}</h1>
+    </div>    
+    <section class="hero is-medium is-primary is-bold" >
+        <br><br>
+        <div class="columns">
+            
+            <div class="column " style="margin-left: 40%;">
+                <form method="POST" >
+                        <label>Team Name</label>
+                        <div class="field" style="width: 30%;">
+                            <div class="control">
+                                <input class="input is-primary" type="text" placeholder="Team name" maxlength="20" name="name" id="name" value="{{team.name if update else ''}}">
+                            </div>
+                        </div>
+                        <label>Stadium</label>
+                        <div class="field" >
+                            <div class="control">
+                                <div class="select is-primary" >
+                                    <select name="stadium" >
+                                        {%if not update%}
+                                            <option disabled selected value  > -- select stadium -- </option>
+                                        {%endif%}
+                                        {% for stadium in stadiums %}
+                                            {%if update and stadium[0] == team.stadiumID%}
+                                                <option value="{{stadium[0]}}" selected>{{stadium[1]}}</option>
+                                            {%else%}
+                                                <option value="{{stadium[0]}}">{{stadium[1]}}</option>
+                                            {%endif%}
+                                        {%endfor%}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label>Fan Count</label>
+                        </div>
+                        <div class="columns">
+                            <div class="column is-3">
+                                <div class="field" style="width: 115%;">
+                                    <div class="control">
+                                        <input class="input is-primary" name="fancount" type="number" placeholder="Fan Count" value="{{team.fancount if update else 0}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <label>League</label>
+                        <div class="field">
+                            <div class="control">
+                                <div class="select is-primary">
+                                    <select name="league">
+                                        {%if not update%}
+                                            <option disabled selected value> -- select league -- </option>
+                                        {%endif%}
+                                        {% for league in leagues %}
+                                            {%if update and league[0] == team.leagueID%}
+                                                <option value="{{league[0]}}" selected>{{league[1]}} - {{league[3]}}</option>
+                                            {%else%}
+                                                <option value="{{league[0]}}">{{league[1]}} - {{league[3]}}</option>
+                                            {%endif%}
+                                        {%endfor%}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <label>City</label>
+                        <div class="field" style="width: 30%;">
+                            <div class="control">
+                                <input class="input is-primary" name="teamcity" type="text" placeholder="Team city" maxlength="20" value="{{team.city if update else ''}}">
+                            </div>
+                        </div>
+                        <label>Coach</label>
+                        <div class="field">
+                            <div class="control">
+                                <div class="select is-primary">
+                                    <select name="coach">
+                                        {%if not update%}
+                                            <option disabled selected value> -- select coach -- </option>
+                                        {%endif%}
+                                        {% for person in people %}
+                                            {%if update and person[0] == team.coach%}
+                                                <option value="{{person[0]}}" selected>{{person[1]}}</option>
+                                            {%else%}
+                                                <option value="{{person[0]}}">{{person[1]}}</option>
+                                            {%endif%}
+                                        {%endfor%}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label>Establish Year</label>
+                        </div>
+                        <div class="columns">
+                            <div class="column is-3">
+                                <div class="field" style="width: 115%;">
+                                    <div class="control">
+                                        <input class="input is-primary" min="1500" name="establish_year" type="number" placeholder="Establish Year" max="2019" value="{{team.establishyear if update else 2019}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <label>Team Logo</label>
+                        <div class="field" style="width: 30%;">
+                            <div class="control">
+                                <input class="input is-primary" onkeyup="success()" id="photourl" type="text" name="teamLogo" maxlength="200" placeholder="Team logo URL" value="{{team.teamLogo if update else ''}}">
+                            </div>
+                        </div>
+                        <input class="button is-danger" id="save" type="submit" title="Save Team" value="Save" disabled>
+                        <br><br><br>
+                </form>
+            </div>
+            
+        </div>    
+    </section>
+    <script>
+        function success() {
+	        if(document.getElementById("photourl").value==="") { 
+                document.getElementById('save').disabled = true; 
+            } else { 
+                document.getElementById('save').disabled = false;
+            }
+        }
+    </script>
+{% endblock %}

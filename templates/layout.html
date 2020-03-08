@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>Football - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css"/>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='sytles.css') }}"/>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" 
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
+            crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar is-primary is-bold">
+        
+          <div class="navbar-brand">
+              <a class="navbar-item" href="{{ url_for('home_page') }}" style="font-weight:bold;">
+                  Football Database
+              </a>
+              <div class="navbar-burger burger" data-target="main">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+              </div>
+          </div>
+          <div id="main" class="navbar-menu">
+            <div class="navbar-start">
+              <a href="{{ url_for('players_page') }}" class="navbar-item">Players</a>
+              <a href="{{ url_for('coachs_page') }}" class="navbar-item">Coaches</a>
+              <a href="{{ url_for('teams_page') }}" class="navbar-item">Teams</a>
+              <a href="{{ url_for('stadiums_page') }}" class="navbar-item">Stadiums</a>
+              <a href="{{ url_for('matches_page') }}" class="navbar-item">Matches</a>
+              <a href="{{ url_for('leagues_page') }}" class="navbar-item">Leagues</a>
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                  Add Data
+                </a>
+            
+                <div class="navbar-dropdown is-boxed">  
+                  <a class="navbar-item" href="{{ url_for('add_person') }}">
+                    Add Person
+                  </a>
+                  <a class="navbar-item" href="{{ url_for('add_team') }}">
+                    Add Team
+                  </a>
+                  <a class="navbar-item" href="{{ url_for('add_stadium') }}">
+                    Add Stadium
+                  </a>
+                  <a class="navbar-item" href="{{ url_for('add_league') }}">
+                    Add League
+                  </a>
+                  <a class="navbar-item" href="{{ url_for('add_match') }}">
+                    Add Match
+                  </a>
+                </div>
+              </div>
+              {% if (user.is_active) %}
+                <p class="navbar-item" id="welcome">Welcome {{user.name}}!</p> 
+                <a class="navbar-item" id="update" href="/update_user">Update User Info</a> 
+                <a class="navbar-item" id="session" href="/logout">Log out</a>
+                <a class="navbar-item" id="delete" href="/delete_user">Delete Account</a>
+              {%else%}
+                <p class="navbar-item" id="welcome">Welcome Guest!</p> 
+                <a class="navbar-item" id="session" href="/login">Log in</a>
+              {% endif %}
+            </div>
+          </div>
+        
+      </nav>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="content">
+          {% block content %}{% endblock %}
+        </div>
+      </section>
+    </main>
+
+    <div class="footer">
+      <div class="columns">
+        <div class="column is-4">
+          <small>&copy; 2019, itucsdb1901</small>
+        </div>
+        <div class="column">
+            <i class="fa fa-github"><a href="https://github.com/hbt1903" target="_blank" style="color:darkturquoise;" > Hasan Berke Tekin</a></i>
+        </div>
+        <div class="column">    
+            <i class="fa fa-github"><a href="https://github.com/TalhaSelimhan" target="_blank" style="color:darkturquoise;"> Talha Selimhan Arı</a></i>
+        </div>
+        <div class="column">
+            <i class="fa fa-github"><a href="https://github.com/furkan12345" target="_blank" style="color:darkturquoise;"> İbrahim Furkan Kaplan</a></i>
+        </div>    
+        <div class="column">    
+            <i class="fa fa-github"><a href="https://github.com/silay16" target="_blank" style="color:darkturquoise;"> Muhammed Furkan Silay</a></i>
+        </div>
+      </div>  
+    </div>
+    <script>
+      $(document).ready(function() {
+      $(".navbar-burger").click(function() {
+          $(".navbar-burger").toggleClass("is-active");
+          $(".navbar-menu").toggleClass("is-active");
+      });
+      });
+    </script>
+  </body>
+</html>

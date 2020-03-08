@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+{% block title %}Add Player to Squad{% endblock %}
+{% block content %}
+    <div style="text-align: center;">
+        <h1>Add Player To {{team[1]}}</h1>
+        <br>
+    </div>
+    <section class="hero is-medium is-primary is-bold" >
+        <div class="columns" style="margin-left: 25%;">         
+            <div class="column is-4 is-centered"  style="margin-left: 5%;">               
+                <form method="POST">
+                        <br><br>
+                        <label>Select Player</label>
+                        <div class="field">
+                            <div class="control">
+                                <div class="select is-primary">
+                                <select name="playerbox" id="playerbox">
+                                    <option disabled selected value> -- select player -- </option>
+                                    {% for player in playerList %}
+                                    <option value="{{player[0]}}">{{player[1]}}</option>
+                                    {%endfor%}
+                                </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="columns">
+                                <div class="column">
+                                    <label>Position</label>
+                                    <input type="text" name="position" id="position">           
+                                </div>
+                                <div class="column">
+                                    <label>2nd Position</label>
+                                    <input type="text" name="secondposition" id="secondposition">           
+                                </div>
+                                <div class="column">
+                                    <label>Start date </label>
+                                    <input type="text" name="startdate" id="startdate">
+
+                                </div>
+                            </div> 
+                        </div>
+                        <div>    
+                            <div class="columns">
+                                <div class="column">
+                                    <label>Kit Number</label>
+                                    <input type="number" name="kitnumber" id="kitnumber">           
+                                </div>
+                                <div class="column">
+                                    <label>Injury Duration (months)</label>
+                                    <input type="number" name="injurymonth" id="injurymonth">           
+                                </div>
+                                <div class="column">
+                                    <label>Foot (Left or Right)</label>
+                                    <input type="text" name="foot" id="foot">           
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div>    
+                            <div class="columns"> 
+                                <div class="column">
+                                    <label>Duration </label>
+                                    <input type="text" name="duration" id="duration">
+                                </div>   
+                                <div class="column">
+                                    <label>Amount </label>
+                                    <input type="text" name="amount" id="amount">
+                                </div>
+                                <div class="column">
+                                    <label>Release Cost </label>
+                                    <input type="text" name="releasecost" id="releasecost">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label >Is Rent</label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label" style="margin-right:20px">
+                              <input type="radio" class="form-check-input" name="isRent" value="false" >No
+                            </label>
+                            <label class="form-check-label" value="true">
+                                <input type="radio" class="form-check-input" name="isRent" value="true" >Yes
+                            </label>
+                        </div>
+                        <br><br>
+                        <div>
+                            <input class="button is-danger" type="submit" value="Add Player">
+                        </div> 
+                        <br><br>        
+                </form> 
+            </div> 
+        </div>
+    </section>       
+    {% endblock %}

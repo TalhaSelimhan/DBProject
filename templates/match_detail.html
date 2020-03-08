@@ -1,0 +1,125 @@
+{% extends "layout.html" %}
+{% block title %}Player Profile{% endblock %}
+{% block headerTitle %}{{player[1]}}{% endblock %}
+{% block subTitle %}{{player[0]}}{% endblock %}
+{% block content %}
+
+<h1 style="text-align: center;">{{teams[0][0]}} {{teams[0][2]}} - {{teams[0][3]}} {{teams[0][1]}}</h1>
+<section class="hero is-medium is-primary is-bold" >
+    <div class="columns" style="margin: 3%;">
+        <div class="column is-6">
+            <article class="tile is-child notification is-warning" style="height: 100%;" >
+                <div>
+                    <h3 style="text-align: center;">Cards</h3>
+                </div>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Red/Yellow</th>
+                        <th>Minute</th>
+                        <th>First/Second Yellow</th>
+                        <th>Ban Duration</th>
+                        <th>Delete Card</th>
+                    </tr>
+                    {%for card in cards%}
+                    <tr>
+                        <td>{{card[0]}}</td>
+                        <td>
+                            {%if card[1] %}
+                                Red
+                            {%else %}
+                                Yellow
+                            {%endif%}
+                        </td>
+                        <td>{{card[2]}}</td>
+                        <td>
+                            {%if card[1]==1 and card[5]==1%}
+                                Second Yellow
+                            {%elif card[4]==1%}
+                                First Yellow
+                            {%elif card[1]==1 and card[5]==0%}
+                                -
+                            {%endif%}
+                        </td>
+                        <td>
+                            {%if card[1]%}
+                                {{card[6]}}
+                            {%else%}
+                                -
+                            {%endif%}
+                        </td>
+                        <td>                        
+                            <form method="POST" name ="card{{card[3]}}" action="/player/delete_card_{{card[3]}}">
+                                <button class="button is-danger" action="submit" id="delete_cardButton" name="delete_cardButton" >Delete</button>
+                            </form>
+                         </td>
+                    </tr>
+                    {%endfor%}    
+                </table>
+            </article>    
+        </div>
+        <div class="column is-6" >
+            <article class="tile is-child notification is-warning" style="height: 100%;" >
+                <div>
+                    <h3 style="text-align: center;">Goals</h3>
+                </div>
+                <table >
+                    <tr>
+                        <th>Name</th>
+                        <th>Minute</th>
+                        <th>Goal owner team</th>
+                    </tr>
+                    {%for goal in goals%}
+                    <tr>
+                        <td>{{goal[0]}}</td>
+                        <td>{{goal[1]}}</td>
+                        <td>{{goal[2]}}</td>
+                        
+                    
+                    </tr>
+                    {%endfor%}    
+                </table>
+               
+            </article>
+        </div>
+    </div>
+        <div class="columns" style="margin: 3%;">
+            <article class="tile is-child notification is-warning" style="height: 100%;" >
+                <div>
+                    <h3 style="text-align: center;">Substitutions</h3>
+                </div>    
+                <table >
+                    <tr>
+                        <th>Out Player Name</th>
+                        <th>In Player Name</th>
+                        <th>Minute</th>
+                        <th>After Corner</th>
+                        <th>After Offside</th>
+                        <th>After Goal</th>
+                        <th>After Out</th>
+                        <th>Delete</th>                          
+                    </tr>
+                    {%for substitution in substitutions%}
+                    <tr>
+                        <td>{{substitution[0]}}</td>
+                        <td>{{substitution[1]}}</td>
+                        <td>{{substitution[2]}}</td>
+                        <td>{{substitution[3]}}</td>
+                        <td>{{substitution[4]}}</td>
+                        <td>{{substitution[5]}}</td>
+                        <td>{{substitution[6]}}</td>
+                        <td>
+                            <form method="POST" name ="substitution{{substitution[7]}}" action="/substitution/delete_{{substitution[7]}}">
+                                <button class="button is-danger" action="submit" id="delete_subButton" name="delete_subButton" >Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {%endfor%}    
+                </table>
+            </article>
+        </div>
+    
+</section>
+    
+    
+{% endblock %}

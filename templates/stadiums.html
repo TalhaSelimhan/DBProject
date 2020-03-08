@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block title %}Stadiums{% endblock %}
+{% block content %}
+
+    <h1>Stadiums Page</h1>
+    <br>
+    <form action="/stadiums/search_stadium" method="POST">
+        <div class="columns">
+            <div class="column is-one-fifth">
+                <input class="input is-primary" type="text" name="search" id="search" onkeyup="success()" placeholder="Search..">
+            </div>
+            <div class="column">
+                <button class="button is-primary" action='submit' id="button" disabled>Search Stadium</button>
+            </div>
+        </div>
+    </form>
+    <br>
+    <table class="table is-hoverable">
+            <tr>
+                <th><a href="/stadiums/order_by_0">Name</a></th>
+                <th><a href="/stadiums/order_by_1">Team</a></th>
+                <th><a href="/stadiums/order_by_2">Capacity</a></th>
+                <th><a href="/stadiums/order_by_3">City</a></th>
+                <th><a href="/stadiums/order_by_4">Year</a></th>
+                <th><a href="/stadiums/order_by_5">Budget</a></th>
+            </tr>
+            {%for stadium in stadiums%}
+            <tr>
+                <td><a href="/stadiums/update_{{stadium[6]}}">{{stadium[0]}}</a></td>
+                <td>{{stadium[1]}}</td>
+                <td>{{stadium[2]}}</td>
+                <td>{{stadium[3]}}</td>
+                <td>{{stadium[4]}}</td>
+                <td>{{stadium[5]}}</td>
+            </tr>
+            {%endfor%}    
+    </table>
+
+<script>
+    function success() {
+	 if(document.getElementById("search").value==="") { 
+            document.getElementById('button').disabled = true; 
+        } else { 
+            document.getElementById('button').disabled = false;
+        }
+    }
+</script>
+
+
+{% endblock %}

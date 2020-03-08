@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block title %}{{leaguename}}{% endblock %}
+{% block content %}
+<form method="POST">
+    <label>Scored Goals: </label>
+    <input name="scoredgoals" id="scoredgoals" type="checkbox" value="filterscored" />
+    <label>&nbsp;&nbsp;&nbsp;&nbsp;Against Goals: </label>
+    <input  name="againstgoals" id="againstgoals" type="checkbox" value="filteragainst" />
+    <label>&nbsp;&nbsp;&nbsp;&nbsp;Games Played: </label>
+    <input name="gamesplayed" id="gamesplayed" type= "checkbox" value="filterplayed" />
+    <br>
+    <input class="button is-danger" value="Filter" type="submit"/>
+</form>
+<br>
+<br>
+<table class="table is-striped is-narrow is-hoverable is-fullwidth" >
+            <tr>   
+                <th>Position</th>
+                <th>Team Name</th>
+                <th>Win</th>
+                <th>Draw</th>
+                <th>Lose</th>
+                {%if against%}
+                <th>Against Goals</th>
+                {%endif%}
+                {%if scored%}
+                <th>Scored Goals</th>
+                {%endif%}
+                {%if played%}
+                <th>Games Played</th>
+                {%endif%}
+                <th>Avarage</th>
+                <th>Point</th>
+            </tr>
+        {%for s in standing%}
+        <tr>
+            <td>{{standing.index(s)+1}}</td>
+            <td><a href="/teams/detail_{{s[0]}}">{{s[1]}}</a></td>
+            <td>{{s[2]}}</td>
+            <td>{{s[3]}}</td>
+            <td>{{s[4]}}</td>
+            {%if scored%}
+            <td>{{s[5]}}</td>
+            {%endif%}
+            {%if against%}
+            <td>{{s[6]}}</td>
+            {%endif%}
+            {%if played%}
+            <td>{{s[7]}}</td>
+            {%endif%}
+            <td>{{s[8]}}</td>
+            <td>{{s[9]}}</td>
+        </tr>
+        {%endfor%}
+</table>        
+{% endblock %}
